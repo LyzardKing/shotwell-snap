@@ -7,13 +7,20 @@ description: |
   them in various ways, view them in full-window or fullscreen mode, and
   export them to share with others. It is able to manage a lot of different
   image formats, also including raw CR2 files.
-confinement: devmode
+confinement: strict
 grade: stable
 
 apps:
   shotwell:
     command: desktop-launch shotwell --datadir $SNAP_USER_COMMON
-    plugs: [x11, unity7, home, network, mount-observe]
+    plugs:
+      - x11
+      - unity7
+      - home
+      - network
+      - mount-observe
+      - gsettings
+      - removable-media
 
 parts:
   shotwell:
@@ -80,4 +87,7 @@ parts:
       - dconf-tools
       - libgexiv2-2
       - libexiv2-14
+    install: |
+      mv $SNAPCRAFT_PART_INSTALL/share/glib-2.0/schemas/org.yorba.shotwell.gschema.xml $SNAPCRAFT_PART_INSTALL/usr/share/glib-2.0/schemas/
+      mv $SNAPCRAFT_PART_INSTALL/share/glib-2.0/schemas/org.yorba.shotwell-extras.gschema.xml $SNAPCRAFT_PART_INSTALL/usr/share/glib-2.0/schemas/
     after: [desktop-gtk3]
