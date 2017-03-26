@@ -7,7 +7,7 @@ description: |
   them in various ways, view them in full-window or fullscreen mode, and
   export them to share with others. It is able to manage a lot of different
   image formats, also including raw CR2 files.
-confinement: strict
+confinement: devmode
 grade: stable
 
 apps:
