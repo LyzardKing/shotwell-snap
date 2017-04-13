@@ -28,6 +28,7 @@ parts:
     source: git://git.gnome.org/shotwell.git
     source-tag: shotwell-0.26.1
     plugin: autotools
+    configflags: [--prefix=/usr]
     build-packages:
       - desktop-file-utils
       - gnome-doc-utils
@@ -88,9 +89,6 @@ parts:
       - dconf-tools
       - libgexiv2-2
       - libexiv2-14
-    install: |
-      mv $SNAPCRAFT_PART_INSTALL/share/glib-2.0/schemas/org.yorba.shotwell.gschema.xml $SNAPCRAFT_PART_INSTALL/usr/share/glib-2.0/schemas/
-      mv $SNAPCRAFT_PART_INSTALL/share/glib-2.0/schemas/org.yorba.shotwell-extras.gschema.xml $SNAPCRAFT_PART_INSTALL/usr/share/glib-2.0/schemas/
     prepare: |
-      sed -i 's|Icon=shotwell|Icon=${SNAP}/share/icons/hicolor/256x256/apps/shotwell.png|g' misc/shotwell.desktop.in.in
+      sed -i 's|Icon=shotwell|Icon=${SNAP}/usr/share/icons/hicolor/256x256/apps/shotwell.png|g' misc/shotwell.desktop.in.in
     after: [desktop-gtk3]
