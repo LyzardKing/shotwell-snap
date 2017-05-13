@@ -10,6 +10,12 @@ description: |
 confinement: strict
 grade: stable
 
+slots:
+  dbus-shotwell:
+    interface: dbus
+    bus: session
+    name: org.yorba.shotwell
+
 apps:
   shotwell:
     command: desktop-launch shotwell --datadir $SNAP_USER_COMMON
