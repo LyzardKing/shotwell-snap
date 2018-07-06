@@ -20,6 +20,9 @@ apps:
   shotwell:
     command: desktop-launch shotwell --datadir $SNAP_USER_COMMON
     desktop: usr/share/applications/shotwell.desktop
+    environment:
+        CAMLIBS: $SNAP/usr/lib/x86_64-linux-gnu/libgphoto2/2.5.9
+        IOLIBS: $SNAP/usr/lib/x86_64-linux-gnu/libgphoto2_port/0.12.0
     plugs:
       - x11
       - unity7
@@ -29,6 +32,7 @@ apps:
       - mount-observe
       - gsettings
       - removable-media
+      - raw-usb
 
 plugs:
   gnome-3-26-1604:
@@ -68,7 +72,7 @@ parts:
   shotwell:
     source: https://github.com/GNOME/shotwell/archive/shotwell-0.29.3.tar.gz
     plugin: meson
-    meson-parameters: [--prefix=/usr]
+    meson-parameters: [--prefix=/usr, -Dudev=false]
     build-packages:
       - desktop-file-utils
       - gnome-doc-utils
@@ -129,6 +133,7 @@ parts:
       - librsvg2-common
       - dbus-x11
       - dconf-tools
+      - libdb5.3
     override-build: |
       sed -i 's|Icon=shotwell|Icon=${SNAP}/usr/share/icons/hicolor/256x256/apps/shotwell.png|g' misc/shotwell.desktop.in
       snapcraftctl build
